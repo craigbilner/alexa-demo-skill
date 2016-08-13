@@ -5,6 +5,7 @@ process.env.PATH = `${process.env.PATH}:${process.env.LAMBDA_TASK_ROOT}`;
 const Alexa = require('alexa-sdk');
 const newSessionHandlers = require('./handlers/new-session.handlers');
 const stoppedHandlers = require('./handlers/stopped.handlers');
+const gameStartHandlers = require('./handlers/game-start.handlers');
 
 module.exports.handler = function (event, context) {
   const alexa = Alexa.handler(event, context);
@@ -12,7 +13,8 @@ module.exports.handler = function (event, context) {
 
   alexa.registerHandlers(
     newSessionHandlers,
-    stoppedHandlers
+    stoppedHandlers,
+    gameStartHandlers
   );
   alexa.execute();
 };

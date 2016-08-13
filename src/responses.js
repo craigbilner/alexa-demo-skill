@@ -2,6 +2,9 @@
 
 'use strict';
 
+module.exports.gamePrelude = () =>
+  'This is a dangerous game of cat and mouse in the even more dangerous forest, do you want to play?'
+
 module.exports.keepGoing = () =>
   'Would you like to keep going?';
 

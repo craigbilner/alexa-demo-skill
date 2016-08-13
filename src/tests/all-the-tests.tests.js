@@ -6,9 +6,7 @@ const context = require('aws-lambda-mock-context');
 const sessionStartIntent = require('./event-samples/new-session/session-start.intent');
 
 const {
-  keepGoing,
-  goodbye,
-  yesOrNo,
+  gamePrelude,
 } = require('../responses');
 const { GAME_STATES } = require('../enums');
 
@@ -37,10 +35,10 @@ const runIntent = intent => new Promise(res => {
 });
 
 describe('Alexa, start game', () => {
-  it('Did your skill do what it was supposed to...?', () =>
+  it('Respond with game prelude and set state to GAME_START', () =>
     runIntent(sessionStartIntent)
       .then(({ outputSpeech, gameState }) => {
-        // assert.deepEqual(outputSpeech, sanitise(welcome()));
-        // assert.deepEqual(gameState, GAME_STATES.SOME_STATE);
+        assert.deepEqual(outputSpeech, sanitise(gamePrelude()));
+        assert.deepEqual(gameState, GAME_STATES.GAME_START);
       }));
 });
