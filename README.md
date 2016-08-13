@@ -1,3 +1,5 @@
 # Alexa Demo Skill
 
-Code to follow along with tutorial
+Our skills flow diagram:
+
+![alt flow-diagram](https://github.com/craigbilner/alexa-demo-skill/blob/master/flow-diagram.png)
