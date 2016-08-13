@@ -1,3 +1,3 @@
-# Alexa Starter Kit
+# Alexa Demo Skill
 
-A bare bones app to fill in with your ingenious skill
+Code to follow along with tutorial
