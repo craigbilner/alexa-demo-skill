@@ -17,6 +17,21 @@ module.exports.goodbye = () =>
 module.exports.yesOrNo = () =>
   'So is that a yes or a no...?';
 
+module.exports.enterForest = () =>
+  'You enter the dangerous forest from the south side where there\'s a fork in the road, do you go left or right?';
+
+module.exports.evilGoatPig = () =>
+  'There\'s an evil goat pig who offers you 30 pieces of silver, do you take it?';
+
+module.exports.mysteriousWitch = () =>
+  'There is a mysterious witch at a table with a pack of cards, how many cards do you see on her hook for a hand?';
+
+module.exports.leftOrRight = () =>
+  'Try saying, I would like to go left, or, I would like to go right.';
+
+module.exports.pickANumber = () =>
+  'Try saying, there are, then the number, cards, for example, there are five cards.';
+
 module.exports.ask = function(sayWhat, continuation) {
   // updates
   this.attributes.previousState = this.handler.state;

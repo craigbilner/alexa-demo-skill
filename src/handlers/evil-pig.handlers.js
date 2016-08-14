@@ -6,10 +6,7 @@ const mixinHandlers = require('../modules/utils').mixinHandlers;
 const GAME_STATES = require('../enums').GAME_STATES;
 const res = require('../responses');
 
-module.exports = Alexa.CreateStateHandler(GAME_STATES.GAME_START, mixinHandlers(coreHandlers, {
-  GameIntro() {
-    res.ask.call(this, res.gamePrelude());
-  },
+module.exports = Alexa.CreateStateHandler(GAME_STATES.EVIL_PIG, mixinHandlers(coreHandlers, {
   'AMAZON.NoIntent': function() {
     res.tell.call(this, res.goodbye());
   },
@@ -18,7 +15,7 @@ module.exports = Alexa.CreateStateHandler(GAME_STATES.GAME_START, mixinHandlers(
     this.handler.state = GAME_STATES.PLAYING;
 
     // response
-    res.ask.call(this, res.enterForest());
+    res.tell.call(this, res.enterForest());
   },
   'AMAZON.HelpIntent': function() {
     res.ask.call(this, res.gameStartHelp());

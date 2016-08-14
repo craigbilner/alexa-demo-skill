@@ -7,6 +7,7 @@ const context = require('aws-lambda-mock-context');
 const sessionStartIntent = require('./event-samples/new-session/session-start.intent');
 
 const gameStartNoIntent = require('./event-samples/game-start/no.intent');
+const gameStartYesIntent = require('./event-samples/game-start/yes.intent');
 const gameStartCancelIntent = require('./event-samples/game-start/cancel.intent');
 const gameStartHelpIntent = require('./event-samples/game-start/help.intent');
 const gameStartStopIntent = require('./event-samples/game-start/stop.intent');
@@ -14,11 +15,17 @@ const gameStartStopIntent = require('./event-samples/game-start/stop.intent');
 const stoppedYesIntent = require('./event-samples/stopped/yes.intent');
 const stoppedNoIntent = require('./event-samples/stopped/no.intent');
 
+const playingLeftIntent = require('./event-samples/playing/left.intent');
+const playingRightIntent = require('./event-samples/playing/right.intent');
+
 const {
   gamePrelude,
   goodbye,
   gameStartHelp,
   keepGoing,
+  enterForest,
+  evilGoatPig,
+  mysteriousWitch,
 } = require('../responses');
 const { GAME_STATES } = require('../enums');
 
@@ -115,5 +122,32 @@ describe('Alexa, start game', () => {
           assert.deepEqual(outputSpeech, sanitise(goodbye()));
           assert(endOfSession);
         }));
+  });
+
+  describe('Yes', () => {
+    it('Responds with entering forest and sets state to PLAYING', () =>
+      runIntent(gameStartYesIntent)
+        .then(({ outputSpeech, gameState }) => {
+          assert.deepEqual(outputSpeech, sanitise(enterForest()));
+          assert.deepEqual(gameState, GAME_STATES.PLAYING);
+        }));
+
+    describe('I would like to go left', () => {
+      it('Responds with evil pig intro and sets state to EVIL_PIG', () =>
+        runIntent(playingLeftIntent)
+          .then(({ outputSpeech, gameState }) => {
+            assert.deepEqual(outputSpeech, sanitise(evilGoatPig()));
+            assert.deepEqual(gameState, GAME_STATES.EVIL_PIG);
+          }));
+    });
+
+    describe('I would like to go right', () => {
+      it('Responds with mysterious witch intro and sets state to MYSTERIOUS_WITCH', () =>
+        runIntent(playingRightIntent)
+          .then(({ outputSpeech, gameState }) => {
+            assert.deepEqual(outputSpeech, sanitise(mysteriousWitch()));
+            assert.deepEqual(gameState, GAME_STATES.MYSTERIOUS_WITCH);
+          }));
+    });
   });
 });

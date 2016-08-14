@@ -1,0 +1,28 @@
+{
+  "session": {
+    "sessionId": "sessionId",
+    "application": {
+      "applicationId": "appId"
+    },
+    "attributes": {
+      "STATE": "PLAYING",
+      "previousResponse": "You enter the dangerous forest from the south side where there's a fork in the road, do you go left or right?",
+      "previousState": "PLAYING"
+    },
+    "user": {
+      "userId": "userID"
+    },
+    "new": false
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "reqId",
+    "locale": "en-US",
+    "timestamp": "2016-08-14T12:22:28Z",
+    "intent": {
+      "name": "GoLeftIntent",
+      "slots": {}
+    }
+  },
+  "version": "1.0"
+}
