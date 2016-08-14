@@ -5,10 +5,14 @@ const skill = require('../index');
 const context = require('aws-lambda-mock-context');
 
 const sessionStartIntent = require('./event-samples/new-session/session-start.intent');
+
 const gameStartNoIntent = require('./event-samples/game-start/no.intent');
 const gameStartCancelIntent = require('./event-samples/game-start/cancel.intent');
 const gameStartHelpIntent = require('./event-samples/game-start/help.intent');
 const gameStartStopIntent = require('./event-samples/game-start/stop.intent');
+
+const stoppedYesIntent = require('./event-samples/stopped/yes.intent');
+const stoppedNoIntent = require('./event-samples/stopped/no.intent');
 
 const {
   gamePrelude,
@@ -57,6 +61,15 @@ describe('Alexa, start game', () => {
           assert.deepEqual(outputSpeech, sanitise(gameStartHelp()));
           assert.deepEqual(gameState, GAME_STATES.GAME_START);
         }));
+
+    describe('No', () => {
+      it('Responds with goodbye and ends the session', () =>
+        runIntent(gameStartNoIntent)
+          .then(({ outputSpeech, endOfSession }) => {
+            assert.deepEqual(outputSpeech, sanitise(goodbye()));
+            assert(endOfSession);
+          }));
+    });
   });
 
   describe('Stop', () => {
@@ -66,6 +79,24 @@ describe('Alexa, start game', () => {
           assert.deepEqual(outputSpeech, sanitise(keepGoing()));
           assert.deepEqual(gameState, GAME_STATES.STOPPED);
         }));
+
+    describe('Yes', () => {
+      it('Responds with game prelude and sets state to GAME_START', () =>
+        runIntent(stoppedYesIntent)
+          .then(({ outputSpeech, gameState }) => {
+            assert.deepEqual(outputSpeech, sanitise(gamePrelude()));
+            assert.deepEqual(gameState, GAME_STATES.GAME_START);
+          }));
+    });
+
+    describe('No', () => {
+      it('Responds with goodbye and ends the session', () =>
+        runIntent(stoppedNoIntent)
+          .then(({ outputSpeech, endOfSession }) => {
+            assert.deepEqual(outputSpeech, sanitise(goodbye()));
+            assert(endOfSession);
+          }));
+    });
   });
 
   describe('Cancel', () => {

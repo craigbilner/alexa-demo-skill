@@ -1,0 +1,28 @@
+{
+  "session": {
+    "sessionId": "sessionId",
+    "application": {
+      "applicationId": "appId"
+    },
+    "attributes": {
+      "STATE": "STOPPED",
+      "previousResponse": "This is a dangerous game of cat and mouse, in the even more dangerous, dangerous forest...do you want to play?",
+      "previousState": "GAME_START"
+    },
+    "user": {
+      "userId": "userId"
+    },
+    "new": false
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "reqId",
+    "locale": "en-US",
+    "timestamp": "2016-08-14T10:58:40Z",
+    "intent": {
+      "name": "AMAZON.NoIntent",
+      "slots": {}
+    }
+  },
+  "version": "1.0"
+}
