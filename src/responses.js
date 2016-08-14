@@ -3,13 +3,16 @@
 'use strict';
 
 module.exports.gamePrelude = () =>
-  'This is a dangerous game of cat and mouse in the even more dangerous forest, do you want to play?'
+  'This is a dangerous game of cat and mouse, in the even more dangerous, dangerous forest...do you want to play?'
+
+module.exports.gameStartHelp = () =>
+  'Create your own adventure by answering each question which will lead you down different paths, would you like to play?';
 
 module.exports.keepGoing = () =>
-  'Would you like to keep going?';
+  'Continue with game?';
 
 module.exports.goodbye = () =>
-  'Ok, see you soon.';
+  'Oh well, maybe next time hey?';
 
 module.exports.yesOrNo = () =>
   'So is that a yes or a no...?';

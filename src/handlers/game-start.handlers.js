@@ -10,6 +10,12 @@ module.exports = Alexa.CreateStateHandler(GAME_STATES.GAME_START, mixinHandlers(
   GameIntro() {
     res.ask.call(this, res.gamePrelude());
   },
+  'AMAZON.NoIntent': function() {
+    res.tell.call(this, res.goodbye());
+  },
+  'AMAZON.HelpIntent': function() {
+    res.ask.call(this, res.gameStartHelp());
+  },
   Unhandled() {
     res.ask.call(this, res.yesOrNo(), res.yesOrNo());
   },

@@ -3,10 +3,18 @@
 const assert = require('assert');
 const skill = require('../index');
 const context = require('aws-lambda-mock-context');
+
 const sessionStartIntent = require('./event-samples/new-session/session-start.intent');
+const gameStartNoIntent = require('./event-samples/game-start/no.intent');
+const gameStartCancelIntent = require('./event-samples/game-start/cancel.intent');
+const gameStartHelpIntent = require('./event-samples/game-start/help.intent');
+const gameStartStopIntent = require('./event-samples/game-start/stop.intent');
 
 const {
   gamePrelude,
+  goodbye,
+  gameStartHelp,
+  keepGoing,
 } = require('../responses');
 const { GAME_STATES } = require('../enums');
 
@@ -35,10 +43,46 @@ const runIntent = intent => new Promise(res => {
 });
 
 describe('Alexa, start game', () => {
-  it('Respond with game prelude and set state to GAME_START', () =>
+  it('Responds with game prelude and sets state to GAME_START', () =>
     runIntent(sessionStartIntent)
       .then(({ outputSpeech, gameState }) => {
         assert.deepEqual(outputSpeech, sanitise(gamePrelude()));
         assert.deepEqual(gameState, GAME_STATES.GAME_START);
       }));
+
+  describe('Help', () => {
+    it('Responds with game start help without changing state', () =>
+      runIntent(gameStartHelpIntent)
+        .then(({ outputSpeech, gameState }) => {
+          assert.deepEqual(outputSpeech, sanitise(gameStartHelp()));
+          assert.deepEqual(gameState, GAME_STATES.GAME_START);
+        }));
+  });
+
+  describe('Stop', () => {
+    it('Responds with continue game question and sets state to STOPPED', () =>
+      runIntent(gameStartStopIntent)
+        .then(({ outputSpeech, gameState }) => {
+          assert.deepEqual(outputSpeech, sanitise(keepGoing()));
+          assert.deepEqual(gameState, GAME_STATES.STOPPED);
+        }));
+  });
+
+  describe('Cancel', () => {
+    it('Responds with goodbye and ends the session', () =>
+      runIntent(gameStartCancelIntent)
+        .then(({ outputSpeech, endOfSession }) => {
+          assert.deepEqual(outputSpeech, sanitise(goodbye()));
+          assert(endOfSession);
+        }));
+  });
+
+  describe('No', () => {
+    it('Responds with goodbye and ends the session', () =>
+      runIntent(gameStartNoIntent)
+        .then(({ outputSpeech, endOfSession }) => {
+          assert.deepEqual(outputSpeech, sanitise(goodbye()));
+          assert(endOfSession);
+        }));
+  });
 });
