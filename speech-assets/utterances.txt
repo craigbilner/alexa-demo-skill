@@ -1,0 +1,8 @@
+AMAZON.StartOverIntent start game
+AMAZON.StartOverIntent new game
+AMAZON.StartOverIntent start
+AMAZON.StartOverIntent start new game
+
+GoLeftIntent I would like to go left
+GoRightIntent I would like to go right
+NumberOfCardsIntent There are {NoOfCards} cards
