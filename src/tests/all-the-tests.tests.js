@@ -18,6 +18,10 @@ const stoppedNoIntent = require('./event-samples/stopped/no.intent');
 const playingLeftIntent = require('./event-samples/playing/left.intent');
 const playingRightIntent = require('./event-samples/playing/right.intent');
 
+const mysteriousWitchOddIntent = require('./event-samples/mysterious-witch/odd.intent');
+const mysteriousWitchEvenIntent = require('./event-samples/mysterious-witch/even.intent');
+const mysteriousWitchBlaBlaBlaIntent = require('./event-samples/mysterious-witch/blablabla.intent');
+
 const {
   gamePrelude,
   goodbye,
@@ -26,6 +30,8 @@ const {
   enterForest,
   evilGoatPig,
   mysteriousWitch,
+  cardConfirmation,
+  pickANumber,
 } = require('../responses');
 const { GAME_STATES } = require('../enums');
 
@@ -148,6 +154,30 @@ describe('Alexa, start game', () => {
             assert.deepEqual(outputSpeech, sanitise(mysteriousWitch()));
             assert.deepEqual(gameState, GAME_STATES.MYSTERIOUS_WITCH);
           }));
+
+      describe('There are seven cards', () => {
+        it('Responds with confirmation', () =>
+          runIntent(mysteriousWitchOddIntent)
+            .then(({ outputSpeech }) => {
+              assert.deepEqual(outputSpeech, cardConfirmation(false));
+            }));
+      });
+
+      describe('There are four cards', () => {
+        it('Responds with confirmation', () =>
+          runIntent(mysteriousWitchEvenIntent)
+            .then(({ outputSpeech }) => {
+              assert.deepEqual(outputSpeech, cardConfirmation(true));
+            }));
+      });
+
+      describe('Bla bla bla', () => {
+        it('Advises how to answer question', () =>
+          runIntent(mysteriousWitchBlaBlaBlaIntent)
+            .then(({ outputSpeech }) => {
+              assert.deepEqual(outputSpeech, pickANumber());
+            }));
+      });
     });
   });
 });

@@ -1,0 +1,32 @@
+{
+  "session": {
+    "sessionId": "sessionId",
+    "application": {
+      "applicationId": "appId"
+    },
+    "attributes": {
+      "STATE": "MYSTERIOUS_WITCH",
+      "previousResponse": "There is a mysterious witch at a table with a pack of cards, how many cards do you see on her hook for a hand?",
+      "previousState": "MYSTERIOUS_WITCH"
+    },
+    "user": {
+      "userId": "userID"
+    },
+    "new": false
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "reqId",
+    "locale": "en-US",
+    "timestamp": "2016-08-15T20:23:41Z",
+    "intent": {
+      "name": "NumberOfCardsIntent",
+      "slots": {
+        "NoOfCards": {
+          "name": "NoOfCards"
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

@@ -32,6 +32,9 @@ module.exports.leftOrRight = () =>
 module.exports.pickANumber = () =>
   'Try saying, there are, then the number, cards, for example, there are five cards.';
 
+module.exports.cardConfirmation = goEven =>
+  `You shall go down the ${goEven ? 'cobbled' : 'broken bridge'} path`;
+
 module.exports.ask = function(sayWhat, continuation) {
   // updates
   this.attributes.previousState = this.handler.state;
